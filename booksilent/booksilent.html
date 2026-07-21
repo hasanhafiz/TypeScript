@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>booksilent — a restrained catalog of essential reads</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="container wrap py-5">
+
+    <header class="mb-4">
+      <div class="brand-title">booksilent</div>
+      <div class="brand-sub">a restrained catalog of essential reads</div>
+    </header>
+
+    <div class="row g-4">
+      <div class="col-md-5">
+        <div class="catalog-card h-100">
+          <div class="catalog-header">CATALOG <span class="count" id="bookCount">6</span></div>
+          <div class="book-list" id="bookList"></div>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="detail-card" id="detailCard"></div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4 footer-hint">· click a title to view details ·</div>
+  </div>
+
+  <script type="module" src="assets/js/main.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

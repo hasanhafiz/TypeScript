@@ -1,0 +1,140 @@
+:root{
+  --bg:#f4f3f1;
+  --panel:#ffffff;
+  --ink:#1c1b19;
+  --muted:#8b8781;
+  --line:#e7e4de;
+  --row-active:#edeae4;
+  --accent-bar:#1c1b19;
+}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  min-height:100vh;
+}
+.wrap{ max-width:1080px; }
+.brand-title{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:2.5rem;
+  letter-spacing:-0.02em;
+}
+.brand-sub{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+.catalog-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:1rem;
+  overflow:hidden;
+}
+.catalog-header{
+  padding:1.1rem 1.4rem;
+  border-bottom:1px solid var(--line);
+  font-size:0.75rem;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+}
+.catalog-header .count{
+  color:var(--ink);
+  font-weight:600;
+  margin-left:0.4rem;
+}
+.book-list{
+  max-height:640px;
+  overflow-y:auto;
+}
+.book-row{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:1rem 1.4rem;
+  border:0;
+  border-bottom:1px solid var(--line);
+  border-left:3px solid transparent;
+  background:transparent;
+  cursor:pointer;
+  transition:background 0.15s ease;
+}
+.book-row:last-child{ border-bottom:0; }
+.book-row:hover{ background:#f7f6f4; }
+.book-row.active{
+  background:var(--row-active);
+  border-left-color:var(--accent-bar);
+}
+.book-title{
+  font-weight:600;
+  font-size:1rem;
+  color:var(--ink);
+}
+.book-author{
+  font-size:0.85rem;
+  color:var(--muted);
+}
+.detail-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:1rem;
+  padding:2rem 2.2rem;
+  height:100%;
+  min-height:400px;
+}
+.badge-tag{
+  background:#eceae5;
+  color:var(--ink);
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  font-weight:600;
+  padding:0.4rem 0.8rem;
+  border-radius:2rem;
+}
+.detail-title{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:2.2rem;
+  letter-spacing:-0.01em;
+  margin-top:0.9rem;
+}
+.detail-author{
+  color:var(--muted);
+  font-size:1.05rem;
+  margin-top:0.3rem;
+}
+.divider{
+  border-top:1px solid var(--line);
+  margin:1.5rem 0;
+}
+.meta-label{
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+  font-weight:600;
+}
+.price-value{
+  font-family:'Fraunces', serif;
+  font-size:1.8rem;
+  font-weight:600;
+}
+.edition-details{
+  font-size:0.75rem;
+  letter-spacing:0.1em;
+  color:var(--muted);
+  text-transform:uppercase;
+  font-weight:600;
+}
+.edition-details span{ margin-right:0.5rem; }
+.footer-hint{
+  color:var(--muted);
+  font-size:0.75rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+@media (max-width: 767.98px){
+  .detail-card{ margin-top:1.5rem; }
+}
