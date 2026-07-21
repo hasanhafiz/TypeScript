@@ -9,6 +9,21 @@ interface Book {
 const API_URL = 'https://tsapidemo.lwhh.org/api/v1/books';
 const catalogContainerElement = document.getElementById('book-catalog')!;
 const errorMessageElement = document.getElementById('error-message')!;
+const modalElement = document.getElementById('bookModal')!;
+const modalBookDetailsElement = document.getElementById('modalBookDetails')!;
+
+interface BootstrapModalConstructor {
+    new (element: HTMLElement): {
+        show(options?: unknown): void;
+        hide(): void;
+    };
+}
+
+interface WindowWithBootstrap extends Window {
+    bootstrap?: {
+        Modal: BootstrapModalConstructor;
+    };
+}
 
 function showError(): void {
     catalogContainerElement.classList.add('d-none');
@@ -17,6 +32,21 @@ function showError(): void {
 
 function formatPrice(price: number): string {
     return price.toFixed(2);
+}
+
+function showBookDetailsInModal(book: Book): void {
+    modalBookDetailsElement.innerHTML = `
+        <h4>${book.title}</h4>
+        <p><strong>Author:</strong> ${book.author}</p>
+        <p><strong>Category:</strong> ${book.category}</p>
+        <p><strong>Price:</strong> $${formatPrice(book.price)}</p>
+    `;
+
+    const windowWithBootstrap = window as WindowWithBootstrap;
+    if (windowWithBootstrap.bootstrap) {
+        const modal = new windowWithBootstrap.bootstrap.Modal(modalElement);
+        modal.show();
+    }
 }
 
 function createBookCard(book: Book): HTMLElement {
@@ -33,6 +63,14 @@ function createBookCard(book: Book): HTMLElement {
             </div>
         </div>
     `;
+    
+    const bookCardDiv = cardElement.querySelector('.book-card') as HTMLElement;
+    bookCardDiv.setAttribute('tabindex', '0');
+    bookCardDiv.setAttribute('role', 'button');
+    bookCardDiv.setAttribute('aria-label', `View details for ${book.title}`);
+    bookCardDiv.addEventListener('click', () => {
+        showBookDetailsInModal(book);
+    });
     
     return cardElement;
 }
