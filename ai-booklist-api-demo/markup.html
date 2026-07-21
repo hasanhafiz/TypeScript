@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        main {
+            flex: 1;
+            padding-bottom: 3rem;
+        }
+        .book-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .book-card .card-body {
+            padding: 1.5rem;
+        }
+        .book-card .book-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .book-card .book-author {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+        .book-card .book-category {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+        .book-card .book-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 0;
+        }
+        .loading-spinner {
+            padding: 4rem 0;
+        }
+        .error-message {
+            padding: 2rem;
+        }
+        .footer {
+            padding: 2rem 0;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">Book Catalog</h1>
+            <p class="header-subtitle">Explore our collection of books</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="book-catalog" class="row g-4">
+            <div class="col-12">
+                <div class="loading-spinner text-center my-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading books...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="error-message" class="error-message d-none">
+            <div class="alert alert-danger" role="alert">
+                Failed to load books. Please try again later.
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Book Catalog Demo</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'https://tsapidemo.lwhh.org/api/v1/books';
+        const catalogContainerElement = document.getElementById('book-catalog');
+        const errorMessageElement = document.getElementById('error-message');
+
+        function showError() {
+            catalogContainerElement.classList.add('d-none');
+            errorMessageElement.classList.remove('d-none');
+        }
+
+        function formatPrice(price) {
+            return price.toFixed(2);
+        }
+
+        function createBookCard(book) {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
+            cardElement.innerHTML = `
+                <div class="card book-card h-100">
+                    <div class="card-body">
+                        <h5 class="book-title">${book.title}</h5>
+                        <p class="book-author mb-1">by ${book.author}</p>
+                        <span class="book-category">${book.category}</span>
+                        <p class="book-price mt-2">$${formatPrice(book.price)}</p>
+                    </div>
+                </div>
+            `;
+            return cardElement;
+        }
+
+        async function fetchBooks() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const books = await response.json();
+                catalogContainerElement.innerHTML = '';
+                books.forEach(function(book) {
+                    const cardElement = createBookCard(book);
+                    catalogContainerElement.appendChild(cardElement);
+                });
+            } catch (error) {
+                console.error('Error fetching books:', error);
+                showError();
+            }
+        }
+
+        fetchBooks();
+    </script>
+</body>
+</html>

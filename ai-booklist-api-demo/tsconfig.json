@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "strict": true,
+        "noImplicitAny": true,
+        "moduleResolution": "bundler",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./assets/js",
+        "declaration": false,
+        "sourceMap": true,
+        "rootDir": "./assets/ts"
+    },
+    "include": ["assets/ts/**/*"],
+    "exclude": ["node_modules"]
+}
